@@ -3,36 +3,158 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Welcome to our website. Learn more about us and get in touch.">
-    <title>Home | Our Website</title>
+    <meta name="description" content="Node.js Web Server Application featuring complete route navigation, architecture breakdown, request flow, and interactive API handling.">
+    <title>Node.js Web Server Application | Route Dashboard</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/">Our Website</a>
-      <nav aria-label="Main navigation">
+      <a class="brand" href="/">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        Node.js Server <span class="brand-badge">v1.0.0</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
         <a aria-current="page" href="/">Home</a>
-        <a href="/about.html">About</a>
-        <a href="/contact.html">Contact</a>
+        <a href="/navigation">Navigation</a>
+        <a href="/route-overview">Route Overview</a>
+        <a href="/about">About</a>
+        <a href="/request-flow">Request Flow</a>
+        <a href="/available-routes">Available Routes</a>
+        <a href="/contact">Contact</a>
+        <a href="/non-existent-page" style="opacity: 0.75;">Test 404</a>
       </nav>
     </header>
+
     <main>
-      <p class="eyebrow">Welcome</p>
-      <h1>A good place to start.</h1>
-      <p class="intro">Take a look around to learn more about us and find the right way to get in touch.</p>
-      <section class="page-list" aria-label="Website pages">
-        <a class="page-link" href="/about.html">
-          <span class="page-number">01</span>
-          <span><strong>About</strong><small>Get to know us</small></span>
-          <span class="arrow" aria-hidden="true">&rarr;</span>
-        </a>
-        <a class="page-link" href="/contact.html">
-          <span class="page-number">02</span>
-          <span><strong>Contact</strong><small>Start a conversation</small></span>
-          <span class="arrow" aria-hidden="true">&rarr;</span>
-        </a>
-      </section>
+      <div class="eyebrow">🚀 Node.js & Express Web Server Application</div>
+      <h1>Interactive <span class="gradient-text">Web Server</span> Dashboard</h1>
+      <p class="intro">
+        Welcome to the Node.js Web Server architecture suite. Explore server routes, request execution pipelines, route navigation components, contact form endpoints, and custom error pages.
+      </p>
+
+      <!-- Live Server Metrics Bar -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 40px;">
+        <div>
+          <span style="color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Server Status</span>
+          <div style="color: var(--accent-primary); font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+            <span style="width: 8px; height: 8px; background: var(--accent-primary); border-radius: 50%; display: inline-block;"></span> Active (200 OK)
+          </div>
+        </div>
+        <div>
+          <span style="color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Runtime Environment</span>
+          <div style="color: #fff; font-weight: 600; font-size: 1.05rem; margin-top: 4px;" id="val-runtime">Node.js Express</div>
+        </div>
+        <div>
+          <span style="color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Uptime</span>
+          <div style="color: #fff; font-weight: 600; font-size: 1.05rem; margin-top: 4px;" id="val-uptime">Loading...</div>
+        </div>
+        <div>
+          <span style="color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Total Requests</span>
+          <div style="color: var(--accent-secondary); font-weight: 700; font-size: 1.05rem; margin-top: 4px;" id="val-requests">Loading...</div>
+        </div>
+      </div>
+
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 20px; color: #fff;">Server Modules & Figures</h2>
+
+      <div class="grid-3">
+        <!-- Fig 4.4 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="fig-tag">FIG 4.4</span>
+            <span style="color: var(--accent-primary);">⚡</span>
+          </div>
+          <h3 class="card-title">Route Navigation</h3>
+          <p class="card-desc">Interactive Route Navigation Section displaying path breadcrumbs, active state indicators, and routing controls.</p>
+          <a class="card-link" href="/navigation">Explore Section &rarr;</a>
+        </div>
+
+        <!-- Fig 4.5 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="fig-tag">FIG 4.5</span>
+            <span style="color: var(--accent-secondary);">📊</span>
+          </div>
+          <h3 class="card-title">Route Overview</h3>
+          <p class="card-desc">Comprehensive overview matrix of all mapped HTTP routes, verbs, response handlers, and real-time execution statistics.</p>
+          <a class="card-link" href="/route-overview">View Overview &rarr;</a>
+        </div>
+
+        <!-- Fig 4.6 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="fig-tag">FIG 4.6</span>
+            <span style="color: var(--accent-purple);">ℹ️</span>
+          </div>
+          <h3 class="card-title">About Server</h3>
+          <p class="card-desc">Detailed About Page of the Node.js Web Server explaining system specifications, architecture, and technology stack.</p>
+          <a class="card-link" href="/about">View About Page &rarr;</a>
+        </div>
+
+        <!-- Fig 4.7 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="fig-tag">FIG 4.7</span>
+            <span style="color: var(--accent-amber);">🔄</span>
+          </div>
+          <h3 class="card-title">Request Flow</h3>
+          <p class="card-desc">Step-by-step visual diagram demonstrating HTTP Request Flow and Node.js Event Loop / Express working process.</p>
+          <a class="card-link" href="/request-flow">Simulate Request Flow &rarr;</a>
+        </div>
+
+        <!-- Fig 4.8 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="fig-tag">FIG 4.8</span>
+            <span style="color: var(--accent-blue);">🌐</span>
+          </div>
+          <h3 class="card-title">Available Routes</h3>
+          <p class="card-desc">Available Routes and Page Navigation hub with quick REST API testing tool and live endpoint inspector.</p>
+          <a class="card-link" href="/available-routes">Browse All Routes &rarr;</a>
+        </div>
+
+        <!-- Fig 4.9 -->
+        <div class="card">
+          <div class="card-header">
+            <span class="fig-tag">FIG 4.9</span>
+            <span style="color: var(--accent-danger);">⚠️</span>
+          </div>
+          <h3 class="card-title">Custom 404 Error</h3>
+          <p class="card-desc">Custom 404 Error Page handler gracefully handling non-existent paths with user suggestions and recovery options.</p>
+          <a class="card-link" href="/non-existent-page">Test 404 Error Page &rarr;</a>
+        </div>
+
+        <!-- Fig 4.10 -->
+        <div class="card" style="grid-column: 1 / -1;">
+          <div class="card-header">
+            <span class="fig-tag">FIG 4.10</span>
+            <span style="color: var(--accent-primary);">📬</span>
+          </div>
+          <h3 class="card-title">Contact Form Page</h3>
+          <p class="card-desc">Interactive Contact Form Page of the Node.js Web Server supporting POST requests, JSON payload processing, client validation, and real-time backend persistence.</p>
+          <a class="card-link" href="/contact">Open Contact Form Page &rarr;</a>
+        </div>
+      </div>
     </main>
-    <footer>Thanks for visiting.</footer>
+
+    <footer>
+      <div>Node.js Web Server Application &bull; Figures 4.4 to 4.10 Complete Implementation</div>
+      <div>Running on Node.js & Express</div>
+    </footer>
+
+    <script>
+      async function fetchServerMetrics() {
+        try {
+          const res = await fetch('/api/server-info');
+          const data = await res.json();
+          document.getElementById('val-runtime').textContent = data.nodeVersion + ' (' + data.platform + ')';
+          document.getElementById('val-uptime').textContent = data.uptimeSeconds + 's';
+          document.getElementById('val-requests').textContent = data.totalRequestsHandled + ' requests';
+        } catch(e) {
+          console.error(e);
+        }
+      }
+      fetchServerMetrics();
+      setInterval(fetchServerMetrics, 5000);
+    </script>
   </body>
 </html>

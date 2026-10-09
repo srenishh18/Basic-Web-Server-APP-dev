@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fig. 4.9 – Custom 404 Error Page of the Node.js Web Server. Gracefully handling unmapped URL requests.">
+    <title>404 Page Not Found | Fig. 4.9 Custom 404 Error Page</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        Node.js Server <span class="brand-badge" style="background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);">Fig 4.9 &bull; 404</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/navigation">Navigation</a>
+        <a href="/route-overview">Route Overview</a>
+        <a href="/about">About</a>
+        <a href="/request-flow">Request Flow</a>
+        <a href="/available-routes">Available Routes</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="error-container">
+        <div class="eyebrow" style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.25); color: #ef4444;">
+          FIG. 4.9 IMPLEMENTATION &bull; HTTP 404 NOT FOUND
+        </div>
+        
+        <div class="error-code">404</div>
+        <h1>Page <span style="color: var(--accent-danger);">Not Found</span></h1>
+        
+        <p class="intro" style="margin: 16px auto 32px; text-align: center;">
+          The requested URL path <code id="missing-path" style="color: #f87171; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3);">/unknown</code> was not matched by any Express route handler registered on this Node.js web server.
+        </p>
+
+        <!-- Troubleshooting Box -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; max-width: 680px; margin: 0 auto 36px; text-align: left;">
+          <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span>🔍 404 Error Handler Diagnostic</span>
+          </h3>
+          <ul style="color: var(--text-muted); font-size: 0.95rem; padding-left: 20px; line-height: 1.8;">
+            <li>Catch-all Express error middleware intercepted this unmapped HTTP GET request.</li>
+            <li>HTTP Response Status Code set to <strong>404 (Not Found)</strong>.</li>
+            <li>No static file matching this filename exists inside <code>/public</code> directory.</li>
+          </ul>
+        </div>
+
+        <!-- Quick Recovery Action Buttons -->
+        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="/">🏠 Return to Home Dashboard</a>
+          <a class="btn btn-secondary" href="/available-routes">🌐 View Available Routes</a>
+          <a class="btn btn-secondary" href="/contact">📬 Contact Support</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div>Fig. 4.9 – Custom 404 Error Page</div>
+      <div>Node.js Web Server Application</div>
+    </footer>
+
+    <script>
+      document.getElementById('missing-path').textContent = window.location.pathname;
+    </script>
+  </body>
+</html>

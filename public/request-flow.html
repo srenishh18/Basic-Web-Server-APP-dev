@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fig. 4.7 – Request Flow and Server Working Process. Visual diagram and interactive request simulation.">
+    <title>Fig. 4.7 – Request Flow and Server Working Process</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        Node.js Server <span class="brand-badge">Fig 4.7</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/navigation">Navigation</a>
+        <a href="/route-overview">Route Overview</a>
+        <a href="/about">About</a>
+        <a aria-current="page" href="/request-flow">Request Flow</a>
+        <a href="/available-routes">Available Routes</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="eyebrow">FIG. 4.7 IMPLEMENTATION</div>
+      <h1>Request Flow & <span class="gradient-text">Working Process</span></h1>
+      <p class="intro">
+        Fig. 4.7 illustrates the internal life cycle of an incoming HTTP request through the Node.js event loop, Express middleware pipeline, route resolution, and HTTP response delivery.
+      </p>
+
+      <!-- Figure Card Header -->
+      <div class="card" style="margin-bottom: 32px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+          <div>
+            <span class="fig-tag">Fig. 4.7</span>
+            <h2 style="font-size: 1.4rem; color: #fff; display: inline-block; margin-left: 10px;">Request Flow Diagram & Server Process</h2>
+          </div>
+          <button class="btn btn-primary" id="btn-simulate" onclick="runSimulation()">▶️ Run Request Flow Simulation</button>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Click "Run Request Flow Simulation" to visualize how an HTTP packet travels step-by-step through each layer of the Node.js server stack.
+        </p>
+      </div>
+
+      <!-- Flow Container -->
+      <div class="flow-container">
+        <!-- Step 1 -->
+        <div class="flow-step" id="step-1">
+          <div class="flow-number">1</div>
+          <div class="flow-content">
+            <div class="flow-title">1. HTTP Client Request</div>
+            <div class="flow-desc">Client browser issues an HTTP Request (e.g. <code>GET /request-flow</code>) over TCP/IP socket targeting port 3000.</div>
+          </div>
+        </div>
+        <div class="flow-arrow">&darr;</div>
+
+        <!-- Step 2 -->
+        <div class="flow-step" id="step-2">
+          <div class="flow-number">2</div>
+          <div class="flow-content">
+            <div class="flow-title">2. Node.js Event Loop Ingestion</div>
+            <div class="flow-desc">Node.js HTTP server receives the socket connection and delegates the request object (req) and response object (res) to Express.</div>
+          </div>
+        </div>
+        <div class="flow-arrow">&darr;</div>
+
+        <!-- Step 3 -->
+        <div class="flow-step" id="step-3">
+          <div class="flow-number">3</div>
+          <div class="flow-content">
+            <div class="flow-title">3. Express Middleware Pipeline</div>
+            <div class="flow-desc">Request flows sequentially through global middleware: <code>express.json()</code>, body parser, request logger, and <code>express.static()</code>.</div>
+          </div>
+        </div>
+        <div class="flow-arrow">&darr;</div>
+
+        <!-- Step 4 -->
+        <div class="flow-step" id="step-4">
+          <div class="flow-number">4</div>
+          <div class="flow-content">
+            <div class="flow-title">4. Route Match & Controller Execution</div>
+            <div class="flow-desc">Express evaluates route table. If match is found (e.g., <code>app.get('/request-flow')</code>), controller handler executes business logic.</div>
+          </div>
+        </div>
+        <div class="flow-arrow">&darr;</div>
+
+        <!-- Step 5 -->
+        <div class="flow-step" id="step-5">
+          <div class="flow-number">5</div>
+          <div class="flow-content">
+            <div class="flow-title">5. HTTP Response Stream & Final 200 OK</div>
+            <div class="flow-desc">Server transmits HTTP headers (Status 200, Content-Type: text/html) and body back to browser, closing socket stream.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Simulation Console -->
+      <div style="margin-top: 40px; background: #060b0e; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px;">
+        <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 12px;">💻 Live Execution Trace</h3>
+        <pre id="trace-console" style="margin: 0; min-height: 100px;">Click "Run Request Flow Simulation" above to view live trace output...</pre>
+      </div>
+
+      <a class="back-link" href="/" style="display: inline-block; margin-top: 36px; color: var(--accent-primary); text-decoration: none; font-weight: 600;">&larr; Back to Home Dashboard</a>
+    </main>
+
+    <footer>
+      <div>Fig. 4.7 – Request Flow and Server Working Process</div>
+      <div>Node.js Web Server Application</div>
+    </footer>
+
+    <script>
+      let isRunning = false;
+      async function runSimulation() {
+        if (isRunning) return;
+        isRunning = true;
+        const btn = document.getElementById('btn-simulate');
+        btn.disabled = true;
+        btn.textContent = '⏳ Simulating Flow...';
+
+        const steps = ['step-1', 'step-2', 'step-3', 'step-4', 'step-5'];
+        const consoleEl = document.getElementById('trace-console');
+        consoleEl.textContent = '[0ms] Simulation started...\n';
+
+        for (let i = 0; i < steps.length; i++) {
+          steps.forEach(s => document.getElementById(s).classList.remove('active'));
+          const stepEl = document.getElementById(steps[i]);
+          stepEl.classList.add('active');
+          
+          const time = (i + 1) * 350;
+          consoleEl.textContent += `[${time}ms] Executing Step ${i + 1}: ${stepEl.querySelector('.flow-title').textContent}\n`;
+          
+          await new Promise(r => setTimeout(r, 450));
+        }
+
+        consoleEl.textContent += `[${steps.length * 450}ms] Request cycle completed successfully! 200 OK response rendered.\n`;
+
+        setTimeout(() => {
+          steps.forEach(s => document.getElementById(s).classList.remove('active'));
+          btn.disabled = false;
+          btn.textContent = '▶️ Run Request Flow Simulation';
+          isRunning = false;
+        }, 1500);
+      }
+    </script>
+  </body>
+</html>

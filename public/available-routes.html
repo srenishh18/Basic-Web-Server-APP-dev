@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Fig. 4.8 – Available Routes and Page Navigation. Interactive routing hub and REST endpoint tester.">
+    <title>Fig. 4.8 – Available Routes and Page Navigation</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        Node.js Server <span class="brand-badge">Fig 4.8</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/navigation">Navigation</a>
+        <a href="/route-overview">Route Overview</a>
+        <a href="/about">About</a>
+        <a href="/request-flow">Request Flow</a>
+        <a aria-current="page" href="/available-routes">Available Routes</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="eyebrow">FIG. 4.8 IMPLEMENTATION</div>
+      <h1>Available Routes & <span class="gradient-text">Page Navigation</span></h1>
+      <p class="intro">
+        Fig. 4.8 represents the master directory of all available pages and REST API routes served by the Node.js server. Test endpoints live and inspect HTTP responses directly from this page.
+      </p>
+
+      <!-- Figure Card Header -->
+      <div class="card" style="margin-bottom: 32px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+          <div>
+            <span class="fig-tag">Fig. 4.8</span>
+            <h2 style="font-size: 1.4rem; color: #fff; display: inline-block; margin-left: 10px;">Available Routes Directory & Inspector</h2>
+          </div>
+          <span style="background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.3); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">Interactive Route Sandbox</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Select any route from the list below to trigger a live fetch request and preview the server's HTTP response headers, payload data, and status codes.
+        </p>
+      </div>
+
+      <!-- Live Route Inspector Console -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; margin-bottom: 32px;">
+        <h3 style="font-size: 1.15rem; color: #fff; margin-bottom: 20px;">⚡ Live Route Tester</h3>
+        
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
+          <select id="route-select" class="form-control" style="max-width: 320px;">
+            <option value="/api/server-info">GET /api/server-info (Server Metrics)</option>
+            <option value="/api/routes">GET /api/routes (Route Matrix JSON)</option>
+            <option value="/api/logs">GET /api/logs (Traffic Logs JSON)</option>
+            <option value="/api/contact-submissions">GET /api/contact-submissions (Submissions JSON)</option>
+            <option value="/about">GET /about (HTML About Page)</option>
+            <option value="/navigation">GET /navigation (HTML Nav Page)</option>
+            <option value="/404-trigger-test">GET /404-trigger-test (Trigger Custom 404)</option>
+          </select>
+          <button class="btn btn-primary" onclick="testSelectedRoute()">Send HTTP Request</button>
+        </div>
+
+        <!-- Result Box -->
+        <div style="background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span style="font-weight: 700; color: #fff;">Response Inspector</span>
+            <span id="response-status" class="method-badge method-get">200 OK</span>
+          </div>
+          <pre id="response-preview" style="margin: 0; max-height: 250px; overflow-y: auto;">Select a route and click "Send HTTP Request" to test...</pre>
+        </div>
+      </div>
+
+      <!-- Quick Page Links List -->
+      <h3 style="font-size: 1.25rem; color: #fff; margin-bottom: 16px;">Direct Page Navigation Shortcut Hub</h3>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a class="route-list-item" href="/" style="text-decoration: none;">
+          <span class="fig-tag">FIG 4.4</span>
+          <span class="method-badge method-get">GET /</span>
+          <div>
+            <div class="route-path">Home Dashboard</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Main web server portal & metrics</div>
+          </div>
+          <span style="color: var(--accent-primary); font-weight: 600;">Visit Page &rarr;</span>
+        </a>
+
+        <a class="route-list-item" href="/navigation" style="text-decoration: none;">
+          <span class="fig-tag">FIG 4.4</span>
+          <span class="method-badge method-get">GET /navigation</span>
+          <div>
+            <div class="route-path">Web Server Route Navigation Section</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Navigation component & state switcher</div>
+          </div>
+          <span style="color: var(--accent-primary); font-weight: 600;">Visit Page &rarr;</span>
+        </a>
+
+        <a class="route-list-item" href="/route-overview" style="text-decoration: none;">
+          <span class="fig-tag">FIG 4.5</span>
+          <span class="method-badge method-get">GET /route-overview</span>
+          <div>
+            <div class="route-path">Web Server Route Overview</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Routing matrix & dynamic request stream</div>
+          </div>
+          <span style="color: var(--accent-primary); font-weight: 600;">Visit Page &rarr;</span>
+        </a>
+
+        <a class="route-list-item" href="/about" style="text-decoration: none;">
+          <span class="fig-tag">FIG 4.6</span>
+          <span class="method-badge method-get">GET /about</span>
+          <div>
+            <div class="route-path">About Page of the Node.js Web Server</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Server specs & system information</div>
+          </div>
+          <span style="color: var(--accent-primary); font-weight: 600;">Visit Page &rarr;</span>
+        </a>
+
+        <a class="route-list-item" href="/request-flow" style="text-decoration: none;">
+          <span class="fig-tag">FIG 4.7</span>
+          <span class="method-badge method-get">GET /request-flow</span>
+          <div>
+            <div class="route-path">Request Flow and Server Working Process</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Step-by-step event loop flow simulator</div>
+          </div>
+          <span style="color: var(--accent-primary); font-weight: 600;">Visit Page &rarr;</span>
+        </a>
+
+        <a class="route-list-item" href="/contact" style="text-decoration: none;">
+          <span class="fig-tag">FIG 4.10</span>
+          <span class="method-badge method-get">GET /contact</span>
+          <div>
+            <div class="route-path">Contact Form Page of the Node.js Web Server</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Interactive form submission & persistence</div>
+          </div>
+          <span style="color: var(--accent-primary); font-weight: 600;">Visit Page &rarr;</span>
+        </a>
+      </div>
+
+      <a class="back-link" href="/" style="display: inline-block; margin-top: 36px; color: var(--accent-primary); text-decoration: none; font-weight: 600;">&larr; Back to Home Dashboard</a>
+    </main>
+
+    <footer>
+      <div>Fig. 4.8 – Available Routes and Page Navigation</div>
+      <div>Node.js Web Server Application</div>
+    </footer>
+
+    <script>
+      async function testSelectedRoute() {
+        const url = document.getElementById('route-select').value;
+        const preview = document.getElementById('response-preview');
+        const statusEl = document.getElementById('response-status');
+
+        preview.textContent = 'Sending HTTP request to ' + url + '...';
+
+        try {
+          const res = await fetch(url);
+          const isJson = res.headers.get('content-type')?.includes('json');
+          const data = isJson ? await res.json() : await res.text();
+          
+          statusEl.textContent = res.status + ' ' + res.statusText;
+          statusEl.className = 'method-badge ' + (res.status === 200 ? 'method-get' : 'method-post');
+          
+          if (isJson) {
+            preview.textContent = JSON.stringify(data, null, 2);
+          } else {
+            preview.textContent = data.slice(0, 500) + '\n\n[...HTML View Truncated...]';
+          }
+        } catch(e) {
+          statusEl.textContent = 'Error';
+          preview.textContent = 'Failed to fetch: ' + e.message;
+        }
+      }
+    </script>
+  </body>
+</html>
