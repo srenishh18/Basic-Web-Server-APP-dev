@@ -1,0 +1,12 @@
+# Environment variables and local secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
